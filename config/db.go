@@ -3,20 +3,22 @@ package config
 import (
 	"fmt"
 	"rest-api-gin-jwt/models"
+	"rest-api-gin-jwt/utils"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 func ConnectDatabase() *gorm.DB {
-	username := "root"
-	password := "123456"
-	host := "tcp(127.0.0.1:3306)"
-	database := "database_movies"
+	username := utils.GetEnv("DATABASE_USERNAME", "root")
+	password := utils.GetEnv("DATABASE_PASSWORD", "password")
+	host := utils.GetEnv("DATABASE_HOST", "127.0.0.1")
+	port := utils.GetEnv("DATABASE_PORT", "3306")
+	database := utils.GetEnv("DATABASE_NAME", "database_movie")
 
-	dsn := fmt.Sprintf("%v:%v@%v/%v?charset=utf8mb4&parseTime=True&loc=Local", username, password, host, database)
-
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", username, password, host, port, database)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+
 	if err != nil {
 		panic(err.Error())
 	}
