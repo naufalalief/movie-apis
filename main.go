@@ -5,6 +5,7 @@ import (
 	"rest-api-gin-jwt/config"
 	"rest-api-gin-jwt/docs"
 	"rest-api-gin-jwt/routes"
+	"rest-api-gin-jwt/utils"
 
 	"github.com/joho/godotenv"
 )
@@ -19,25 +20,27 @@ import (
 // @termsOfService http://swagger.io/terms/
 
 func main() {
+	// for load godotenv
+	// for env
+	environment := utils.GetEnv("ENVIRONMENT", "development")
 
-	err := godotenv.Load()
-
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	if environment == "development" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
-
-	//programmatically set swagger info
-	docs.SwaggerInfo.Title = "Swagger Movie API"
+	// programmatically set swagger info
+	docs.SwaggerInfo.Title = "Swagger Example API"
 	docs.SwaggerInfo.Description = "This is a sample server Movie."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:8080"
-	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
+	// database connection
 	db := config.ConnectDatabase()
-
 	sqlDB, _ := db.DB()
 	defer sqlDB.Close()
 
+	// router
 	r := routes.SetupRouter(db)
 	r.Run()
 }
