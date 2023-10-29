@@ -11,9 +11,9 @@ import (
 
 func ConnectDatabase() *gorm.DB {
 	username := utils.GetEnv("DATABASE_USERNAME", "root")
-	password := utils.GetEnv("DATABASE_PASSWORD", "")
+	password := utils.GetEnv("DATABASE_PASSWORD", "123456")
 	host := utils.GetEnv("DATABASE_HOST", "127.0.0.1")
-	port := utils.GetEnv("DATABASE_PORT", "3306")
+	port := utils.GetEnv("DATABASE_PORT", "3307")
 	database := utils.GetEnv("DATABASE_NAME", "database_movies")
 
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local",
