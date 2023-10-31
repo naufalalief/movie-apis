@@ -77,20 +77,6 @@ info:
   termsOfService: http://swagger.io/terms/
 paths:
   /age-rating-categories:
-    get:
-      description: get list of age rating categories
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.AgeRatingCategory'
-            type: array
-      summary: List all age rating categories
-      tags:
-      - Age Rating Category
     post:
       description: Create new age rating categories
       parameters:
@@ -340,4 +326,19 @@ paths:
       summary: Register as an user
       tags:
       - Auth
+  /tes:
+    get:
+      description: get list of age rating categories
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.AgeRatingCategory'
+            type: array
+      summary: List all age rating categories
+      tags:
+      - Age Rating Category
 swagger: "2.0"
