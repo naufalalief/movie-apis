@@ -6,6 +6,7 @@ import (
 	"rest-api-gin-jwt/docs"
 	"rest-api-gin-jwt/routes"
 
+	"github.com/gin-contrib/cors"
 	"github.com/joho/godotenv"
 )
 
@@ -41,5 +42,12 @@ func main() {
 
 	// router
 	r := routes.SetupRouter(db)
+
+	corsConfig := cors.DefaultConfig()
+	corsConfig.AllowAllOrigins = true
+	corsConfig.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}
+	corsConfig.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
+	r.Use(cors.New(corsConfig))
+
 	r.Run()
 }
