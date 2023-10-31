@@ -25,6 +25,27 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/age-rating-categories": {
+            "get": {
+                "description": "get list of age rating categories",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Age Rating Category"
+                ],
+                "summary": "List all age rating categories",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.AgeRatingCategory"
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
@@ -400,29 +421,6 @@ const docTemplate = `{
                         "schema": {
                             "type": "object",
                             "additionalProperties": true
-                        }
-                    }
-                }
-            }
-        },
-        "/tes": {
-            "get": {
-                "description": "get list of age rating categories",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Age Rating Category"
-                ],
-                "summary": "List all age rating categories",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.AgeRatingCategory"
-                            }
                         }
                     }
                 }
